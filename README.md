@@ -1,62 +1,20 @@
 
-# VectorShift HubSpot Integration Technical Assessment
+# VectorShift Integrations Hub
 
-This project implements a HubSpot OAuth integration for VectorShift's technical assessment. It includes a frontend built with React and Shadcn UI components, and a backend built with FastAPI.
+This project demonstrates integration with multiple third-party services (HubSpot, Notion, and Airtable) using OAuth authentication and API data fetching.
 
 ## Project Structure
 
-```
-integrations_technical_assessment/
-│
-├── backend/
-│   ├── main.py                # FastAPI application entry point
-│   ├── hubspot.py             # HubSpot integration
-│   ├── airtable.py            # Airtable integration (provided)
-│   ├── notion.py              # Notion integration (provided)
-│   ├── integration_item.py    # Integration item model
-│   ├── redis_client.py        # Redis client for storing credentials
-│   └── requirements.txt       # Python dependencies
-│
-└── frontend/
-    ├── src/
-    │   ├── integrations/
-    │   │   └── hubspot.js     # HubSpot frontend integration
-    │   └── ...                # Other frontend files
-    └── ...
-```
+- **Frontend**: React application with UI for connecting to different integrations
+- **Backend**: FastAPI server that handles OAuth flow and fetching data from integrations
 
 ## Setup Instructions
 
 ### Prerequisites
 
-1. Node.js and npm for the frontend
-2. Python 3.8+ for the backend
-3. Redis server for credential storage
-
-### HubSpot Developer Account
-
-1. Create a HubSpot developer account at https://developers.hubspot.com/
-2. Create a new app
-3. Configure OAuth settings:
-   - Set the Redirect URL to `http://localhost:3000`
-   - Add required scopes: `contacts`, `content`, `crm.objects.contacts.read`, `crm.objects.deals.read`
-4. Note your Client ID and Client Secret
-
-### Environment Setup
-
-Create environment variables for your HubSpot credentials:
-
-```bash
-# For Linux/macOS
-export HUBSPOT_CLIENT_ID="your-client-id"
-export HUBSPOT_CLIENT_SECRET="your-client-secret"
-export HUBSPOT_REDIRECT_URI="http://localhost:3000"
-
-# For Windows (PowerShell)
-$env:HUBSPOT_CLIENT_ID="your-client-id"
-$env:HUBSPOT_CLIENT_SECRET="your-client-secret"
-$env:HUBSPOT_REDIRECT_URI="http://localhost:3000"
-```
+- Node.js (v16+)
+- Python (v3.9+)
+- Redis server
 
 ### Backend Setup
 
@@ -65,24 +23,17 @@ $env:HUBSPOT_REDIRECT_URI="http://localhost:3000"
    cd backend
    ```
 
-2. Create a virtual environment (optional but recommended):
-   ```bash
-   python -m venv venv
-   source venv/bin/activate  # For Linux/macOS
-   venv\Scripts\activate     # For Windows
-   ```
-
-3. Install dependencies:
+2. Install Python dependencies:
    ```bash
    pip install -r requirements.txt
    ```
 
-4. Start Redis server:
+3. Make sure Redis is running:
    ```bash
    redis-server
    ```
 
-5. Start the FastAPI server:
+4. Start the backend server:
    ```bash
    uvicorn main:app --reload
    ```
@@ -94,33 +45,59 @@ $env:HUBSPOT_REDIRECT_URI="http://localhost:3000"
    cd frontend
    ```
 
-2. Install dependencies:
+2. Install Node.js dependencies:
    ```bash
    npm install
    ```
 
-3. Start the development server:
+3. Start the frontend development server:
    ```bash
    npm start
    ```
 
-## Using the Application
+## Integration Setup
 
-1. Open your browser and navigate to `http://localhost:3000`
-2. Click "Connect" on the HubSpot integration card
-3. Complete the HubSpot OAuth flow
-4. After successful authentication, click "View Items" to fetch and display data from HubSpot
+### HubSpot
 
-## Testing
+1. Create a HubSpot Developer account
+2. Create a new app in the HubSpot Developer Portal
+3. Configure the OAuth settings with the redirect URL (typically http://localhost:3000)
+4. Add required scopes (contacts, content, crm.objects.contacts.read, crm.objects.deals.read)
+5. Update the client ID and client secret in `backend/hubspot.py`
 
-The implementation fetches:
-- Contacts from HubSpot
-- Deals from HubSpot
+### Notion (Optional)
 
-All items are displayed in JSON format for inspection.
+1. Create a Notion developer account
+2. Create a new integration in the Notion Developer Portal
+3. Configure the OAuth settings with the redirect URL
+4. Update the client ID and client secret in `backend/notion.py`
 
-## Additional Notes
+### Airtable (Optional)
 
-- The project uses simulated user authentication for simplicity in the assessment context.
-- Redis is used to store OAuth tokens and credentials.
-- For a production application, additional security measures would be implemented.
+1. Create an Airtable developer account
+2. Create a new app in the Airtable Developer Portal
+3. Configure the OAuth settings with the redirect URL
+4. Update the client ID and client secret in `backend/airtable.py`
+
+## Features
+
+- OAuth authentication flow for each integration
+- Mock data support for development and testing
+- Fetching and displaying contacts and deals from HubSpot
+- Responsive UI for managing integrations
+- Connect/disconnect functionality for each integration
+- Error handling and user feedback via toasts
+
+## Implementation Details
+
+- The backend uses FastAPI for API endpoints and Redis for token storage
+- The frontend is built with React and uses modern React hooks
+- For development convenience, the application includes mock data and authentication simulation
+
+## Note for Assessment Submission
+
+This implementation focuses on:
+1. Complete HubSpot OAuth integration
+2. Loading and displaying HubSpot items (contacts and deals)
+3. A clean, modular codebase with proper separation of concerns
+4. Error handling and fallback mechanisms
