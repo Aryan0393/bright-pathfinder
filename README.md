@@ -1,73 +1,126 @@
-# Welcome to your Lovable project
 
-## Project info
+# VectorShift HubSpot Integration Technical Assessment
 
-**URL**: https://lovable.dev/projects/c75da872-ada2-4307-aec7-de7679675ffa
+This project implements a HubSpot OAuth integration for VectorShift's technical assessment. It includes a frontend built with React and Shadcn UI components, and a backend built with FastAPI.
 
-## How can I edit this code?
+## Project Structure
 
-There are several ways of editing your application.
-
-**Use Lovable**
-
-Simply visit the [Lovable Project](https://lovable.dev/projects/c75da872-ada2-4307-aec7-de7679675ffa) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+```
+integrations_technical_assessment/
+│
+├── backend/
+│   ├── main.py                # FastAPI application entry point
+│   ├── hubspot.py             # HubSpot integration
+│   ├── airtable.py            # Airtable integration (provided)
+│   ├── notion.py              # Notion integration (provided)
+│   ├── integration_item.py    # Integration item model
+│   ├── redis_client.py        # Redis client for storing credentials
+│   └── requirements.txt       # Python dependencies
+│
+└── frontend/
+    ├── src/
+    │   ├── integrations/
+    │   │   └── hubspot.js     # HubSpot frontend integration
+    │   └── ...                # Other frontend files
+    └── ...
 ```
 
-**Edit a file directly in GitHub**
+## Setup Instructions
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+### Prerequisites
 
-**Use GitHub Codespaces**
+1. Node.js and npm for the frontend
+2. Python 3.8+ for the backend
+3. Redis server for credential storage
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+### HubSpot Developer Account
 
-## What technologies are used for this project?
+1. Create a HubSpot developer account at https://developers.hubspot.com/
+2. Create a new app
+3. Configure OAuth settings:
+   - Set the Redirect URL to `http://localhost:3000`
+   - Add required scopes: `contacts`, `content`, `crm.objects.contacts.read`, `crm.objects.deals.read`
+4. Note your Client ID and Client Secret
 
-This project is built with:
+### Environment Setup
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+Create environment variables for your HubSpot credentials:
 
-## How can I deploy this project?
+```bash
+# For Linux/macOS
+export HUBSPOT_CLIENT_ID="your-client-id"
+export HUBSPOT_CLIENT_SECRET="your-client-secret"
+export HUBSPOT_REDIRECT_URI="http://localhost:3000"
 
-Simply open [Lovable](https://lovable.dev/projects/c75da872-ada2-4307-aec7-de7679675ffa) and click on Share -> Publish.
+# For Windows (PowerShell)
+$env:HUBSPOT_CLIENT_ID="your-client-id"
+$env:HUBSPOT_CLIENT_SECRET="your-client-secret"
+$env:HUBSPOT_REDIRECT_URI="http://localhost:3000"
+```
 
-## Can I connect a custom domain to my Lovable project?
+### Backend Setup
 
-Yes, you can!
+1. Navigate to the backend directory:
+   ```bash
+   cd backend
+   ```
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+2. Create a virtual environment (optional but recommended):
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # For Linux/macOS
+   venv\Scripts\activate     # For Windows
+   ```
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+3. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. Start Redis server:
+   ```bash
+   redis-server
+   ```
+
+5. Start the FastAPI server:
+   ```bash
+   uvicorn main:app --reload
+   ```
+
+### Frontend Setup
+
+1. Navigate to the frontend directory:
+   ```bash
+   cd frontend
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Start the development server:
+   ```bash
+   npm start
+   ```
+
+## Using the Application
+
+1. Open your browser and navigate to `http://localhost:3000`
+2. Click "Connect" on the HubSpot integration card
+3. Complete the HubSpot OAuth flow
+4. After successful authentication, click "View Items" to fetch and display data from HubSpot
+
+## Testing
+
+The implementation fetches:
+- Contacts from HubSpot
+- Deals from HubSpot
+
+All items are displayed in JSON format for inspection.
+
+## Additional Notes
+
+- The project uses simulated user authentication for simplicity in the assessment context.
+- Redis is used to store OAuth tokens and credentials.
+- For a production application, additional security measures would be implemented.
