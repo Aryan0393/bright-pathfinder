@@ -155,8 +155,76 @@ const Index = () => {
             }
           }
         ],
-        notion: [],
-        airtable: []
+        notion: [
+          {
+            id: "1",
+            name: "Project Planning",
+            description: "Notes for Q2 planning",
+            type: "page",
+            icon: "https://upload.wikimedia.org/wikipedia/commons/4/45/Notion_app_logo.png",
+            created_at: "2023-01-05T08:30:00Z",
+            created_by: "User",
+            updated_at: "2023-01-18T11:20:00Z",
+            url: "https://notion.so/Project-Planning-123",
+            metadata: {
+              tags: ["planning", "q2", "goals"],
+              status: "in_progress",
+              parent_page: "Team Workspace"
+            }
+          },
+          {
+            id: "2",
+            name: "Meeting Notes",
+            description: "Weekly sync notes with team",
+            type: "page",
+            icon: "https://upload.wikimedia.org/wikipedia/commons/4/45/Notion_app_logo.png",
+            created_at: "2023-02-12T15:45:00Z",
+            created_by: "User",
+            updated_at: "2023-02-12T17:00:00Z",
+            url: "https://notion.so/Meeting-Notes-456",
+            metadata: {
+              tags: ["meeting", "notes", "weekly"],
+              attendees: ["John", "Mary", "Steve"],
+              follow_ups: 3
+            }
+          }
+        ],
+        airtable: [
+          {
+            id: "rec123abc",
+            name: "Customer Feedback",
+            description: "Record from Feedback table",
+            type: "record",
+            icon: "https://seeklogo.com/images/A/airtable-logo-216B9AF035-seeklogo.com.png",
+            created_at: "2023-01-10T09:15:00Z",
+            created_by: "User",
+            updated_at: "2023-01-20T16:30:00Z",
+            url: "https://airtable.com/tblxyz/rec123abc",
+            metadata: {
+              rating: "5 stars",
+              category: "UI/UX",
+              status: "Reviewed",
+              priority: "High"
+            }
+          },
+          {
+            id: "rec456def",
+            name: "Product Roadmap",
+            description: "Feature planning document",
+            type: "record",
+            icon: "https://seeklogo.com/images/A/airtable-logo-216B9AF035-seeklogo.com.png",
+            created_at: "2023-02-05T11:45:00Z",
+            created_by: "User",
+            updated_at: "2023-02-15T10:20:00Z",
+            url: "https://airtable.com/tblxyz/rec456def",
+            metadata: {
+              quarter: "Q2",
+              team: "Product",
+              status: "In Progress",
+              dependencies: 2
+            }
+          }
+        ]
       };
 
       let data;
